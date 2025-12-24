@@ -17,7 +17,6 @@ export default function App() {
   const [userId] = useState(1);
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [issues, setIssues] = useState([]);
-  const [lowPowerMode, setLowPowerMode] = useState(false);
 
   const handleRoleChange = (newRole) => {
     setRole(newRole);
@@ -26,24 +25,18 @@ export default function App() {
     }
   };
 
-  const lowPowerStyle = lowPowerMode ? {
-    filter: 'grayscale(100%)',
-    animation: 'none'
-  } : {};
-
   if (!mode) {
     return (
       <div style={{ 
         minHeight: "100vh", 
-        backgroundColor: lowPowerMode ? "#ccc" : "#e8f5e8", 
+        backgroundColor: "#e8f5e8", 
         display: "flex", 
         alignItems: "center", 
         justifyContent: "center",
-        padding: "20px",
-        ...lowPowerStyle
+        padding: "20px"
       }}>
         <div style={{ 
-          backgroundColor: lowPowerMode ? "#ddd" : "#fff", 
+          backgroundColor: "#fff", 
           padding: "40px", 
           borderRadius: "12px", 
           maxWidth: "600px",
@@ -68,13 +61,12 @@ export default function App() {
                 style={{
                   padding: "15px",
                   fontSize: "1em",
-                  backgroundColor: lowPowerMode ? "#666" : "#4caf50",
+                  backgroundColor: "#4caf50",
                   color: "white",
                   border: "none",
                   borderRadius: "6px",
                   cursor: "pointer",
-                  fontWeight: "bold",
-                  transition: "background-color 0.3s"
+                  fontWeight: "bold"
                 }}
               >
                 🏫 Campus Mode
@@ -84,13 +76,12 @@ export default function App() {
                 style={{
                   padding: "15px",
                   fontSize: "1em",
-                  backgroundColor: lowPowerMode ? "#666" : "#2196f3",
+                  backgroundColor: "#2196f3",
                   color: "white",
                   border: "none",
                   borderRadius: "6px",
                   cursor: "pointer",
-                  fontWeight: "bold",
-                  transition: "background-color 0.3s"
+                  fontWeight: "bold"
                 }}
               >
                 🏢 Society Mode
@@ -100,38 +91,17 @@ export default function App() {
                 style={{
                   padding: "15px",
                   fontSize: "1em",
-                  backgroundColor: lowPowerMode ? "#666" : "#ff9800",
+                  backgroundColor: "#ff9800",
                   color: "white",
                   border: "none",
                   borderRadius: "6px",
                   cursor: "pointer",
-                  fontWeight: "bold",
-                  transition: "background-color 0.3s"
+                  fontWeight: "bold"
                 }}
               >
                 🌍 Public Mode
               </button>
             </div>
-          </div>
-
-          <div style={{ 
-            padding: "15px", 
-            backgroundColor: lowPowerMode ? "#999" : "#f5f5f5", 
-            borderRadius: "6px",
-            display: "flex",
-            alignItems: "center",
-            gap: "10px"
-          }}>
-            <input 
-              type="checkbox" 
-              checked={lowPowerMode}
-              onChange={(e) => setLowPowerMode(e.target.checked)}
-              id="lowpower"
-              style={{ cursor: "pointer" }}
-            />
-            <label htmlFor="lowpower" style={{ cursor: "pointer", margin: 0 }}>
-              🔋 Low-Power Mode (grayscale, minimal effects)
-            </label>
           </div>
         </div>
       </div>
@@ -142,15 +112,14 @@ export default function App() {
     return (
       <div style={{ 
         minHeight: "100vh", 
-        backgroundColor: lowPowerMode ? "#ccc" : "#e8f5e8", 
+        backgroundColor: "#e8f5e8", 
         display: "flex", 
         alignItems: "center", 
         justifyContent: "center",
-        padding: "20px",
-        ...lowPowerStyle
+        padding: "20px"
       }}>
         <div style={{ 
-          backgroundColor: lowPowerMode ? "#ddd" : "#fff", 
+          backgroundColor: "#fff", 
           padding: "40px", 
           borderRadius: "12px", 
           maxWidth: "600px",
@@ -165,7 +134,7 @@ export default function App() {
               style={{
                 padding: "15px",
                 fontSize: "1em",
-                backgroundColor: lowPowerMode ? "#666" : "#4caf50",
+                backgroundColor: "#4caf50",
                 color: "white",
                 border: "none",
                 borderRadius: "6px",
@@ -180,7 +149,7 @@ export default function App() {
               style={{
                 padding: "15px",
                 fontSize: "1em",
-                backgroundColor: lowPowerMode ? "#666" : "#2196f3",
+                backgroundColor: "#2196f3",
                 color: "white",
                 border: "none",
                 borderRadius: "6px",
@@ -195,7 +164,7 @@ export default function App() {
               style={{
                 padding: "15px",
                 fontSize: "1em",
-                backgroundColor: lowPowerMode ? "#666" : "#9c27b0",
+                backgroundColor: "#9c27b0",
                 color: "white",
                 border: "none",
                 borderRadius: "6px",
@@ -228,10 +197,10 @@ export default function App() {
   }
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: lowPowerMode ? "#ccc" : "#f5f5f5", ...lowPowerStyle }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#f5f5f5" }}>
       <nav style={{ 
         padding: "15px 20px", 
-        background: lowPowerMode ? "#333" : "#2d5016", 
+        background: "#2d5016", 
         color: "white",
         display: "flex",
         gap: "10px",
@@ -244,24 +213,15 @@ export default function App() {
           <p style={{ margin: "0", fontSize: "0.85em" }}>{mode} Mode | {role}</p>
         </div>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
-          <button onClick={() => setView('dashboard')} style={{ ...navButtonStyle(view === 'dashboard', lowPowerMode) }}>📊 Dashboard</button>
-          {role === 'Reporter' && <button onClick={() => setView('report')} style={{ ...navButtonStyle(view === 'report', lowPowerMode) }}>✏️ Report</button>}
-          <button onClick={() => setView('tracker')} style={{ ...navButtonStyle(view === 'tracker', lowPowerMode) }}>🔍 Tracker</button>
-          {(role === 'Authority' || role === 'Viewer') && mode !== 'Public' && <button onClick={() => setView('analytics')} style={{ ...navButtonStyle(view === 'analytics', lowPowerMode) }}>📈 Analytics</button>}
-          <button onClick={() => setView('sustainability')} style={{ ...navButtonStyle(view === 'sustainability', lowPowerMode) }}>🌱 Sustainability</button>
-          {(role === 'Authority' || role === 'Viewer') && <button onClick={() => setView('deviation')} style={{ ...navButtonStyle(view === 'deviation', lowPowerMode) }}>⚠️ Deviation</button>}
-          <button onClick={() => setView('whatif')} style={{ ...navButtonStyle(view === 'whatif', lowPowerMode) }}>🎯 What-If</button>
-          <button onClick={() => setView('audit')} style={{ ...navButtonStyle(view === 'audit', lowPowerMode) }}>📋 Audit</button>
-          <label style={{ cursor: "pointer", marginLeft: "10px", display: "flex", alignItems: "center", gap: "5px" }}>
-            <input 
-              type="checkbox" 
-              checked={lowPowerMode}
-              onChange={(e) => setLowPowerMode(e.target.checked)}
-              style={{ cursor: "pointer" }}
-            />
-            🔋
-          </label>
-          <button onClick={() => { setMode(null); setRole(null); }} style={{ ...navButtonStyle(false, lowPowerMode), backgroundColor: lowPowerMode ? '#555' : '#d32f2f' }}>🚪 Exit</button>
+          <button onClick={() => setView('dashboard')} style={{ ...navButtonStyle(view === 'dashboard') }}>📊 Dashboard</button>
+          {role === 'Reporter' && <button onClick={() => setView('report')} style={{ ...navButtonStyle(view === 'report') }}>✏️ Report</button>}
+          <button onClick={() => setView('tracker')} style={{ ...navButtonStyle(view === 'tracker') }}>🔍 Tracker</button>
+          {(role === 'Authority' || role === 'Viewer') && mode !== 'Public' && <button onClick={() => setView('analytics')} style={{ ...navButtonStyle(view === 'analytics') }}>📈 Analytics</button>}
+          <button onClick={() => setView('sustainability')} style={{ ...navButtonStyle(view === 'sustainability') }}>🌱 Sustainability</button>
+          {(role === 'Authority' || role === 'Viewer') && <button onClick={() => setView('deviation')} style={{ ...navButtonStyle(view === 'deviation') }}>⚠️ Deviation</button>}
+          <button onClick={() => setView('whatif')} style={{ ...navButtonStyle(view === 'whatif') }}>🎯 What-If</button>
+          <button onClick={() => setView('audit')} style={{ ...navButtonStyle(view === 'audit') }}>📋 Audit</button>
+          <button onClick={() => { setMode(null); setRole(null); }} style={{ ...navButtonStyle(false), backgroundColor: '#d32f2f' }}>🚪 Exit</button>
         </div>
       </nav>
 
@@ -277,7 +237,7 @@ export default function App() {
   );
 }
 
-const navButtonStyle = (isActive, lowPower) => ({
+const navButtonStyle = (isActive) => ({
   padding: "8px 15px",
   color: "white",
   border: "none",
@@ -285,6 +245,5 @@ const navButtonStyle = (isActive, lowPower) => ({
   cursor: "pointer",
   fontSize: "0.9em",
   fontWeight: "bold",
-  backgroundColor: isActive ? (lowPower ? "#555" : "#4caf50") : (lowPower ? "#333" : "#1a3a0f"),
-  transition: "background-color 0.3s"
+  backgroundColor: isActive ? "#4caf50" : "#1a3a0f"
 });
